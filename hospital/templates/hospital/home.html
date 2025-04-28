@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital DBMS</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+        }
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://via.placeholder.com/1500') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .btn-lg {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+        }
+        .btn-custom {
+            background-color: #ff5733;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #ff6f3c;
+        }
+        .lead {
+            font-size: 1.5rem;
+        }
+        .btn-group {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container text-center text-white">
+            <h1 class="display-4 mb-4 animated fadeIn">🏥A New Era of Healthcare Management </h1>
+            <p class="lead animated fadeIn">Manage doctors, appointments, and more with ease. Efficient healthcare at your fingertips.</p>
+            <div class="btn-group animated fadeIn">
+                <a href="{% url 'doctors_list' %}" class="btn btn-custom mx-2">View Doctors</a>
+                <a href="{% url 'appointment_list' %}" class="btn btn-success mx-2">View Appointments</a>
+                <a href="{% url 'create_appointment' %}" class="btn btn-info mx-2">Create Appointment</a>
+                <a href="{% url 'patients_list' %}" class="btn btn-warning mx-2">View Patients</a>
+                <a href="{% url 'admin_dashboard' %}" class="btn btn-dark mx-2">Admin Dashboard</a>
+            </div>
+                 
+            </div>
+            </div>
+    </div>
+
+    <!-- Adding Bootstrap's JS for animation and effects -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".animated").addClass("fadeIn");
+        });
+    </script>
+</body>

@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patients List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+        .table td, .table th {
+            vertical-align: middle;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #117a8b;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Patients List</h2>
+        
+        <!-- Search Bar -->
+        <div class="search-bar mb-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by name or phone" onkeyup="searchTable()">
+        </div>
+
+        <!-- Patients Table -->
+        <table class="table table-bordered table-responsive" id="patientsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Phone</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for patient in patients %}
+                    <tr>
+                        <td>{{ patient.name }}</td>
+                        <td>{{ patient.age }}</td>
+                        <td>{{ patient.phone }}</td>
+                        <td>
+                            <a href="{% url 'patient_detail' patient.id %}" class="btn btn-info">
+                                <i class="bi bi-eye"></i> View Details
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap & Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.min.js"></script>
+
+    <script>
+        function searchTable() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toUpperCase();
+            let table = document.getElementById('patientsTable');
+            let tr = table.getElementsByTagName('tr');
+            
+            for (let i = 0; i < tr.length; i++) {
+                let td = tr[i].getElementsByTagName('td');
+                if (td.length > 0) {
+                    let name = td[0].textContent || td[0].innerText;
+                    let phone = td[2].textContent || td[2].innerText;
+                    if (name.toUpperCase().indexOf(filter) > -1 || phone.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+

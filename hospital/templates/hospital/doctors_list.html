@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1000px;
+        }
+        .table thead {
+            background-color: #0072ff;
+            color: white;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .search-bar {
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Doctor List</h2>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search Doctors...">
+    </div>
+
+    <!-- Doctor Table -->
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered table-hover" id="doctorTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Specialization</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doctor in doctors %}
+                    <tr>
+                        <td>{{ doctor.user.username }}</td>
+                        <td>{{ doctor.user.email }}</td>
+                        <td>{{ doctor.specialization.name }}</td>
+                        <td>{{ doctor.contact }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#doctorTable tbody tr');
+        
+        rows.forEach(row => {
+            let name = row.cells[0].textContent.toLowerCase();
+            let email = row.cells[1].textContent.toLowerCase();
+            let specialization = row.cells[2].textContent.toLowerCase();
+            let contact = row.cells[3].textContent.toLowerCase();
+            
+            if (name.includes(filter) || email.includes(filter) || specialization.includes(filter) || contact.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
